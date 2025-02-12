@@ -1,0 +1,77 @@
+"resources": [
+    {
+        "type": "Microsoft.Compute/virtualMachines",
+        "apiVersion": "2024-07-01",
+        "name": "[parameters('virtualMachines_test_vm_01_name')]",
+        "location": "uksouth",
+        "properties": {
+            "hardwareProfile": {
+                "vmSize": "Standard_D2s_v3"
+            },
+            "additionalCapabilities": {
+                "hibernationEnabled": false
+            },
+            "storageProfile": {
+                "imageReference": {
+                    "publisher": "MicrosoftWindowsDesktop",
+                    "offer": "windows-11",
+                    "sku": "11-pro",
+                    "version": "latest"
+                },
+                "osDisk": {
+                    "osType": "Windows",  // Updated from Linux to Windows
+                    "name": "[concat(parameters('virtualMachines_test_vm_01_name'), '_OsDisk_1_148662bbd687454d8b0078dfb7ea1243')]",
+                    "createOption": "FromImage",
+                    "caching": "ReadWrite",
+                    "managedDisk": {
+                        "id": "[parameters('disks_test_vm_01_OsDisk_1_148662bbd687454d8b0078dfb7ea1243_externalid')]"
+                    },
+                    "deleteOption": "Delete"
+                },
+                "dataDisks": [
+                    {
+                        "lun": 0,
+                        "name": "[concat(parameters('virtualMachines_test_vm_01_name'), '_DataDisk_0')]",
+                        "createOption": "Attach",
+                        "caching": "ReadOnly",
+                        "writeAcceleratorEnabled": false,
+                        "managedDisk": {
+                            "id": "[parameters('disks_test_vm_01_DataDisk_0_externalid')]"
+                        },
+                        "deleteOption": "Delete",
+                        "toBeDetached": false
+                    }
+                ],
+                "diskControllerType": "SCSI"
+            },
+            "osProfile": {
+                "computerName": "[parameters('virtualMachines_test_vm_01_name')]",
+                "adminUsername": "azureuser",
+                "adminPassword": "yourSecurePassword123!",  // Added Windows admin password
+                "windowsConfiguration": {
+                    "enableAutomaticUpdates": true
+                },
+                "provisionVMAgent": true,
+                "patchSettings": {
+                    "patchMode": "ImageDefault",
+                    "assessmentMode": "ImageDefault"
+                }
+            },
+            "networkProfile": {
+                "networkInterfaces": [
+                    {
+                        "id": "[parameters('networkInterfaces_test_vm_017_externalid')]",
+                        "properties": {
+                            "deleteOption": "Delete"
+                        }
+                    }
+                ]
+            },
+            "diagnosticsProfile": {
+                "bootDiagnostics": {
+                    "enabled": true
+                }
+            }
+        }
+    }
+]
