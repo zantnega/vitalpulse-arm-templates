@@ -72,10 +72,6 @@
 					"adminPassword": "yourSecurePassword123!",
 					"windowsConfiguration": {
 						"enableAutomaticUpdates": true
-					},
-					"patchSettings": {
-						"patchMode": "ImageDefault",
-						"assessmentMode": "ImageDefault"
 					}
 				},
 				"networkProfile": {
