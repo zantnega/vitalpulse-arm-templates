@@ -73,7 +73,6 @@
 					"windowsConfiguration": {
 						"enableAutomaticUpdates": true
 					},
-					"provisionVMAgent": true,
 					"patchSettings": {
 						"patchMode": "ImageDefault",
 						"assessmentMode": "ImageDefault"
